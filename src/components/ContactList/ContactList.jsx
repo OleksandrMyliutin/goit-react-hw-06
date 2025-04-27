@@ -1,16 +1,23 @@
-import React from 'react'
-import Contact from './Contact'
-import s from './Contact.module.css'
-const ContactList = ({contacts, handleDelete}) => {
-    return (
-        <ul className={s.wrapper}>
-            {contacts.map((contact) =>
-                <li key = {contact.id}>
-                    <Contact onDelete={handleDelete} id={contact.id} name = {contact.name} number = {contact.number}/>
-                </li>
-            )}
-        </ul>
-    )
-}
+import { useSelector } from 'react-redux';
+import Contact from './Contact';
+import css from './Contact.module.css';
 
-export default ContactList
+export default function ContactList() {
+    const contacts = useSelector(state => state.contacts.items);
+    const filter = useSelector(state => state.filters.name);
+
+  // Фільтрація контактів по імені
+const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+);
+
+return (
+    <ul className={css.wrapper}>   
+        {filteredContacts.map(contact => (
+        <li key={contact.id} className={css.item}>
+            <Contact id={contact.id} name={contact.name} number={contact.number} />
+        </li>
+        ))}
+    </ul>
+    );
+};
