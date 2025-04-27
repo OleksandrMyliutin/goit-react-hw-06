@@ -5,7 +5,6 @@ import { filtersReducer } from './filtersSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import {
-    persistCombineReducers,
     FLUSH,
     REHYDRATE,
     PAUSE,
